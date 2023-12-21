@@ -7,7 +7,8 @@
   --black-clr: #18171c;
   --white-clr: #ffffff;
   --gray-light-clr: #f4f4f6;
-  --gray-medium-clr: #9795a3;
+  --gray-medium-clr: #ceced3;
+  --gray-dark-clr: #9795a3;
 }
 
 body {
