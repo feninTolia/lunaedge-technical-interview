@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-clr: #f2f2f2;
+  --black-clr: #18171c;
+  --white-clr: #ffffff;
+  --gray-light-clr: #f4f4f6;
+  --gray-medium-clr: #9795a3;
+}
+
+body {
+  background-color: var(--bg-clr);
+  color: var(--black-clr);
+}

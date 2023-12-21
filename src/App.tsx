@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import Input from './shared/ui/Input';
+import MultipleSelect from './shared/ui/MultipleSelect';
+import Badge from './shared/ui/Badge';
 
 function App() {
   return (
     <div>
       <p>Welcome to Luna Edge technical interview</p>
-      <h1 className="text-3xl font-bold underline text-red-500">
-        Hello world!
-      </h1>
+      <Input />
+      <MultipleSelect />
+      <Badge>Badge</Badge>
+      <Badge>Badge asasas asdasd asdasd</Badge>
     </div>
   );
 }
