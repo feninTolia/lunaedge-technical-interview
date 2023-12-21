@@ -3,6 +3,7 @@ import Input from './shared/ui/Inputs/Input';
 import MultipleSelect from './shared/ui/MultipleSelect';
 import { pokemonService } from './shared/service/pokemon.service';
 import { EnvelopeIcon } from '@heroicons/react/24/solid';
+import PrimaryButton from './shared/ui/buttons/PrimaryButton';
 
 function App() {
   const [availableOptions, setAvailableOptions] = useState<string[]>([]);
@@ -50,6 +51,9 @@ function App() {
         InputIcon={<EnvelopeIcon />}
         TopRightSlot={<span className="text-grayDark">Optional info</span>}
       />
+      <PrimaryButton onClick={() => console.log('Open')}>
+        Add modal
+      </PrimaryButton>
     </div>
   );
 }
