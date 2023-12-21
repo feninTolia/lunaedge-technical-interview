@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Input from './shared/ui/Input';
+import Input from './shared/ui/Inputs/Input';
 import MultipleSelect from './shared/ui/MultipleSelect';
-import Badge from './shared/ui/Badge';
 import { pokemonService } from './shared/service/pokemon.service';
+import { EnvelopeIcon } from '@heroicons/react/24/solid';
 
 function App() {
   const [availableOptions, setAvailableOptions] = useState<string[]>([]);
@@ -42,7 +42,14 @@ function App() {
         setIsDropdownOpen={setIsDropdownOpen}
         TopRightSlot={<span className="text-grayDark">Optional</span>}
       />
-      <Input />
+      <Input
+        label="Label"
+        helperText="This is a help text"
+        placeholder="Type to filter"
+        type="password"
+        InputIcon={<EnvelopeIcon />}
+        TopRightSlot={<span className="text-grayDark">Optional info</span>}
+      />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import Badge from './Badge';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { IMultiSelectProps } from '../types';
 import { XMarkIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
-import Input from './Input';
+import InputBase from './Inputs/InputBase';
 
 const MultipleSelect = ({
   label,
@@ -28,7 +28,7 @@ const MultipleSelect = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <div className="flex  flex-col gap-2 w-96 ">
         <div className="flex justify-between">
           <div className="font-medium flex gap-1 items-center">
@@ -72,11 +72,17 @@ const MultipleSelect = ({
       <div className="absolute top-20 shadow-md rounded-md overflow-y-scroll max-h-48 bg-white w-96">
         {(filteredOption || isDropdownOpen) && (
           <div className="flex flex-col  items-start py-3">
-            {/* <Input
-              onChange={(e) => {
-                setFilteredOption(e.target.value);
-              }}
-            /> */}
+            <div className="px-4  py-1 flex gap-4 items-center w-full">
+              <span className="font-medium text-grayDark">Find</span>
+              <InputBase
+                width="100%"
+                placeholder="Full pokemon name"
+                onChange={(e) => {
+                  setFilteredOption(e.target.value);
+                }}
+              />
+            </div>
+
             {availableOptions.map((option) => (
               <button
                 key={option}
