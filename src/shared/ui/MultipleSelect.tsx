@@ -28,7 +28,7 @@ const MultipleSelect = ({
   };
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-10">
       <div className="flex  flex-col gap-2 w-96 ">
         <div className="flex justify-between">
           <div className="font-medium flex gap-1 items-center">

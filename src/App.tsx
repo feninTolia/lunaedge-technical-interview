@@ -4,12 +4,14 @@ import MultipleSelect from './shared/ui/MultipleSelect';
 import { pokemonService } from './shared/service/pokemon.service';
 import { EnvelopeIcon } from '@heroicons/react/24/solid';
 import PrimaryButton from './shared/ui/buttons/PrimaryButton';
+import ModalDialog from './shared/ui/ModalDialog';
 
 function App() {
   const [availableOptions, setAvailableOptions] = useState<string[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredOption, setFilteredOption] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchPokemons = async () => {
     return await pokemonService.fetchAllPokemons();
@@ -51,9 +53,14 @@ function App() {
         InputIcon={<EnvelopeIcon />}
         TopRightSlot={<span className="text-grayDark">Optional info</span>}
       />
-      <PrimaryButton onClick={() => console.log('Open')}>
+      <PrimaryButton onClick={() => setIsModalOpen(true)}>
         Add modal
       </PrimaryButton>
+      <ModalDialog
+        title="Modal title"
+        isOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }
