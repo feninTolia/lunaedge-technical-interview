@@ -1,22 +1,24 @@
 import Badge from './Badge';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { IMultiSelectProps } from '../types';
+import { IMultiSelectProps, ISelectedOption } from '../types';
 import { XMarkIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
 import InputBase from './Inputs/InputBase';
+import { ChangeEvent, useState } from 'react';
+import { AsyncDebounceFunction, asyncDebounce } from '../utils';
 
 const MultipleSelect = ({
   label,
   helperText,
-  selectedOptions,
-  setSelectedOptions,
   availableOptions,
-  filteredOption,
-  setFilteredOption,
-  isDropdownOpen,
-  setIsDropdownOpen,
   TopRightSlot,
+  filterSearchFn,
 }: IMultiSelectProps) => {
-  const toggleOption = (option: string) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<ISelectedOption[]>([]);
+
+  console.log('selectedOptions', selectedOptions);
+
+  const toggleOption = (option: ISelectedOption) => {
     const optionIndex = selectedOptions.indexOf(option);
     if (optionIndex !== -1) {
       setSelectedOptions((prev) =>
@@ -25,6 +27,17 @@ const MultipleSelect = ({
       return;
     }
     setSelectedOptions([...selectedOptions, option]);
+  };
+
+  const handleInput: AsyncDebounceFunction = asyncDebounce(
+    async (inputValue: string) => {
+      filterSearchFn(inputValue);
+    },
+    600
+  );
+
+  const onFilterChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    await handleInput(e.target.value);
   };
 
   return (
@@ -45,8 +58,8 @@ const MultipleSelect = ({
             <div className=" flex gap-2 items-center mr-8 w-[87%] overflow-scroll">
               {selectedOptions.length ? (
                 selectedOptions.map((option) => (
-                  <Badge key={option} onClose={() => toggleOption(option)}>
-                    {option}
+                  <Badge key={option.name} onClose={() => toggleOption(option)}>
+                    {option.name}
                   </Badge>
                 ))
               ) : (
@@ -70,28 +83,26 @@ const MultipleSelect = ({
       </div>
 
       <div className="absolute top-20 shadow-md rounded-md overflow-y-scroll max-h-48 bg-white w-96">
-        {(filteredOption || isDropdownOpen) && (
+        {isDropdownOpen && (
           <div className="flex flex-col  items-start py-3">
             <div className="px-4  py-1 flex gap-4 items-center w-full">
               <span className="font-medium text-grayDark">Find</span>
               <InputBase
                 width="100%"
                 placeholder="Full pokemon name"
-                onChange={(e) => {
-                  setFilteredOption(e.target.value);
-                }}
+                onChange={onFilterChange}
               />
             </div>
 
             {availableOptions.map((option) => (
               <button
-                key={option}
+                key={option.name}
                 onClick={() => toggleOption(option)}
                 className={` hover:bg-grayMedium w-full text-left py-1 px-4 ${
                   selectedOptions.includes(option) ? 'bg-grayLight ' : ''
                 } `}
               >
-                {option}
+                {option.name}
               </button>
             ))}
           </div>

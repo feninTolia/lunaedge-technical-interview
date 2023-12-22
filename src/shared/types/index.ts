@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  FC,
-  PropsWithChildren,
-  ReactElement,
-  SetStateAction,
-} from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 
 export interface IBadgeProps extends PropsWithChildren {
   onClose?: () => void;
@@ -13,17 +7,17 @@ export interface IBadgeProps extends PropsWithChildren {
 export interface IMultiSelectProps {
   label: string;
   helperText?: string;
-  selectedOptions: string[];
-  setSelectedOptions: Dispatch<SetStateAction<string[]>>;
-  availableOptions: string[];
-  filteredOption: string;
-  setFilteredOption: Dispatch<SetStateAction<string>>;
-  isDropdownOpen: boolean;
-  setIsDropdownOpen: Dispatch<SetStateAction<boolean>>;
+  availableOptions: { name: string; url: string }[];
   TopRightSlot?: ReactElement;
+  filterSearchFn: (name: string) => Promise<void>;
 }
 
 export interface IRegistrationInputs {
   firstName: string;
   lastName: string;
+}
+
+export interface ISelectedOption {
+  name: string;
+  url: string;
 }

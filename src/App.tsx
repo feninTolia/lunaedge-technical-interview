@@ -1,54 +1,20 @@
-import { useEffect, useState } from 'react';
-import Input from './shared/ui/Inputs/Input';
-import MultipleSelect from './shared/ui/MultipleSelect';
-import { pokemonService } from './shared/service/pokemon.service';
-import { EnvelopeIcon } from '@heroicons/react/24/solid';
+import { useState } from 'react';
 import PrimaryButton from './shared/ui/buttons/PrimaryButton';
 import ModalDialog from './shared/ui/ModalDialog';
 import RegistrationForm from './scenes/RegistrationForm';
+import PokemonTeamSelector from './scenes/PokemonTeamSelector';
 
 function App() {
-  const [availableOptions, setAvailableOptions] = useState<string[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [filteredOption, setFilteredOption] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const fetchPokemons = async () => {
-    return await pokemonService.fetchAllPokemons();
-  };
-
-  useEffect(() => {
-    const fetchFirstPokemons = async () => {
-      const res = await fetchPokemons();
-      let pokemons: string[] = [];
-      res.results.forEach((pokemon: { name: string }) => {
-        pokemons.push(pokemon.name);
-      });
-      setAvailableOptions(pokemons);
-    };
-
-    fetchFirstPokemons();
-  }, []);
 
   return (
     <div className="flex flex-col items-center mt-10 gap-5">
-      <p>Welcome to Luna Edge technical interview</p>
+      <h1 className="text-xl font-bold mb-5">
+        Hello inside Luna Edge technical interview
+      </h1>
 
       <RegistrationForm />
-
-      <MultipleSelect
-        label="Select poke team"
-        helperText="This is a help text"
-        availableOptions={availableOptions}
-        selectedOptions={selectedOptions}
-        setSelectedOptions={setSelectedOptions}
-        filteredOption={filteredOption}
-        setFilteredOption={setFilteredOption}
-        isDropdownOpen={isDropdownOpen}
-        setIsDropdownOpen={setIsDropdownOpen}
-        TopRightSlot={<span className="text-grayDark">Optional</span>}
-      />
+      <PokemonTeamSelector />
 
       <PrimaryButton onClick={() => setIsModalOpen(true)}>
         Add modal

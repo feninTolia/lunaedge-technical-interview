@@ -4,7 +4,7 @@ class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
   private handleError(error: any): void {
-    console.error('API Error:', error);
+    console.log('API Error:', error.message);
     throw error;
   }
 
