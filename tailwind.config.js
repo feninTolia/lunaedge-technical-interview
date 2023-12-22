@@ -18,6 +18,7 @@ export default {
       grayDark: '#9795a3',
       blue: 'rgba(60, 105, 251, 0.461)',
       accentClr: '#4724c7',
+      errorRed: '#fc7474',
     },
   },
   plugins: [],

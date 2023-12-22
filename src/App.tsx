@@ -5,6 +5,7 @@ import { pokemonService } from './shared/service/pokemon.service';
 import { EnvelopeIcon } from '@heroicons/react/24/solid';
 import PrimaryButton from './shared/ui/buttons/PrimaryButton';
 import ModalDialog from './shared/ui/ModalDialog';
+import RegistrationForm from './scenes/RegistrationForm';
 
 function App() {
   const [availableOptions, setAvailableOptions] = useState<string[]>([]);
@@ -33,6 +34,9 @@ function App() {
   return (
     <div className="flex flex-col items-center mt-10 gap-5">
       <p>Welcome to Luna Edge technical interview</p>
+
+      <RegistrationForm />
+
       <MultipleSelect
         label="Label"
         helperText="This is a help text"
@@ -45,6 +49,7 @@ function App() {
         setIsDropdownOpen={setIsDropdownOpen}
         TopRightSlot={<span className="text-grayDark">Optional</span>}
       />
+
       <Input
         label="Label"
         helperText="This is a help text"
@@ -53,6 +58,7 @@ function App() {
         InputIcon={<EnvelopeIcon />}
         TopRightSlot={<span className="text-grayDark">Optional info</span>}
       />
+
       <PrimaryButton onClick={() => setIsModalOpen(true)}>
         Add modal
       </PrimaryButton>

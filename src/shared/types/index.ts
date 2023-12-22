@@ -22,3 +22,8 @@ export interface IMultiSelectProps {
   setIsDropdownOpen: Dispatch<SetStateAction<boolean>>;
   TopRightSlot?: ReactElement;
 }
+
+export interface IRegistrationInputs {
+  firstName: string;
+  lastName: string;
+}

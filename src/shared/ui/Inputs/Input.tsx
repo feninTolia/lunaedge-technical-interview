@@ -1,6 +1,7 @@
 import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import { InputHTMLAttributes, ReactElement } from 'react';
 import InputBase from './InputBase';
+import { useFormContext } from 'react-hook-form';
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   width?: string;
@@ -16,8 +17,11 @@ const Input = ({
   TopRightSlot,
   helperText,
   InputIcon,
+  name = '',
   ...attr
 }: IInputProps) => {
+  const methods = useFormContext();
+  const errorMessage = methods?.formState.errors[name]?.message as string;
   return (
     <label className="flex flex-col gap-2">
       <div className="flex justify-between">
@@ -27,8 +31,10 @@ const Input = ({
         </div>
         {TopRightSlot}
       </div>
-      <InputBase width={width} InputIcon={InputIcon} {...attr} />
-      <span className="text-grayDark ">{helperText}</span>
+      <InputBase width={width} InputIcon={InputIcon} name={name} {...attr} />
+      <span className={` ${errorMessage ? 'text-errorRed' : 'text-grayDark'}`}>
+        {errorMessage ? errorMessage : helperText}
+      </span>
     </label>
   );
 };
