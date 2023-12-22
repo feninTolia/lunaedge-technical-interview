@@ -3,14 +3,17 @@ import MultipleSelect from '../shared/ui/MultipleSelect';
 import { useFetchPokemons } from '../shared/service/hooks/useFetchPokemons';
 import { ISelectedOption } from '../shared/types';
 import PrimaryButton from '../shared/ui/buttons/PrimaryButton';
-import { ModalContext } from '../shared/context';
+import { ModalContext, SelectedOptionsContext } from '../shared/context';
 
 const PokemonTeamSelector = () => {
   const [availableOptions, setAvailableOptions] = useState<ISelectedOption[]>(
     []
   );
   const { fetchPokemons, fetchPokemonByFullName } = useFetchPokemons();
-  const context = useContext(ModalContext);
+  const contextModal = useContext(ModalContext);
+  const contextOptions = useContext(SelectedOptionsContext);
+  if (!contextOptions) return <p>Error</p>;
+  const { selectedOptions } = contextOptions;
 
   const fetchFirstPokemons = async () => {
     const res = await fetchPokemons();
@@ -54,14 +57,16 @@ const PokemonTeamSelector = () => {
     <>
       <MultipleSelect
         label="Select poke team"
-        helperText="This is a help text"
+        helperText="Select 4 pokemons"
         availableOptions={availableOptions}
         TopRightSlot={<span className="text-grayDark">Optional</span>}
         filterSearchFn={handleFetchPokemonByName}
       />
-      <PrimaryButton onClick={() => context?.setIsModalOpen(true)}>
-        Open modal
-      </PrimaryButton>
+      {selectedOptions.length === 4 && (
+        <PrimaryButton onClick={() => contextModal?.setIsModalOpen(true)}>
+          Open modal
+        </PrimaryButton>
+      )}
     </>
   );
 };

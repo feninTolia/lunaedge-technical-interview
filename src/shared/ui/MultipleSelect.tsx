@@ -20,10 +20,6 @@ const MultipleSelect = ({
   if (!context) return <p>Context error, please try to reload the page</p>;
   const { selectedOptions, setSelectedOptions } = context;
 
-  // console.log(context.selectedOptions);
-
-  // console.log('selectedOptions', selectedOptions);
-
   const toggleOption = (option: ISelectedOption) => {
     const optionIndex = selectedOptions.indexOf(option);
     if (optionIndex !== -1) {
@@ -32,6 +28,7 @@ const MultipleSelect = ({
       );
       return;
     }
+    if (selectedOptions.length === 4) return;
     setSelectedOptions([...selectedOptions, option]);
   };
 
@@ -90,7 +87,10 @@ const MultipleSelect = ({
 
       <div className="absolute top-20 shadow-md rounded-md overflow-y-scroll max-h-48 bg-white w-96">
         {isDropdownOpen && (
-          <div className="flex flex-col  items-start py-3">
+          <div
+            className="flex flex-col  items-start py-3"
+            onMouseLeave={() => setIsDropdownOpen(false)}
+          >
             <div className="px-4  py-1 flex gap-4 items-center w-full">
               <span className="font-medium text-grayDark">Find</span>
               <InputBase
