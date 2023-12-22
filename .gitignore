@@ -32,3 +32,5 @@ config/local*
 .out
 .storybook-out
 storybook-static
+# Local Netlify folder
+.netlify

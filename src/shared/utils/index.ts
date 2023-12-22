@@ -4,7 +4,7 @@ export function asyncDebounce(
   func: AsyncDebounceFunction,
   delay: number
 ): AsyncDebounceFunction {
-  let timeoutId: number | undefined;
+  let timeoutId: NodeJS.Timeout | undefined;
   let resolve: (() => void) | undefined;
 
   return async function (...args: any[]) {
