@@ -3,8 +3,9 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { IMultiSelectProps, ISelectedOption } from '../types';
 import { XMarkIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
 import InputBase from './Inputs/InputBase';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { AsyncDebounceFunction, asyncDebounce } from '../utils';
+import { SelectedOptionsContext } from '../context';
 
 const MultipleSelect = ({
   label,
@@ -14,9 +15,14 @@ const MultipleSelect = ({
   filterSearchFn,
 }: IMultiSelectProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<ISelectedOption[]>([]);
+  const context = useContext(SelectedOptionsContext);
 
-  console.log('selectedOptions', selectedOptions);
+  if (!context) return <p>Context error, please try to reload the page</p>;
+  const { selectedOptions, setSelectedOptions } = context;
+
+  // console.log(context.selectedOptions);
+
+  // console.log('selectedOptions', selectedOptions);
 
   const toggleOption = (option: ISelectedOption) => {
     const optionIndex = selectedOptions.indexOf(option);

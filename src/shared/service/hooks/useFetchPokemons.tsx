@@ -24,5 +24,14 @@ export const useFetchPokemons = () => {
     }
   };
 
-  return { fetchPokemons, fetchPokemonByFullName };
+  const fetchPokemonByUrl = async (url: string) => {
+    try {
+      const res = await pokemonService.fetchPokeByUrl(url);
+      return res;
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  return { fetchPokemons, fetchPokemonByFullName, fetchPokemonByUrl };
 };

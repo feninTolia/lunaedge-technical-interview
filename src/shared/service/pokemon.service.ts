@@ -26,6 +26,10 @@ class PokemonService {
     const url = `${this.apiUrl}${fullName}`;
     return this.fetchData(url);
   };
+
+  fetchPokeByUrl = async (url: string) => {
+    return this.fetchData(url);
+  };
 }
 
 export const pokemonService = new PokemonService();

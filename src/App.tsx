@@ -19,11 +19,14 @@ function App() {
       <PrimaryButton onClick={() => setIsModalOpen(true)}>
         Add modal
       </PrimaryButton>
-      <ModalDialog
-        title="Modal title"
-        isOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
+
+      {isModalOpen && (
+        <ModalDialog
+          title="Your Team"
+          isOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </div>
   );
 }

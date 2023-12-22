@@ -1,12 +1,9 @@
-import React, { Dispatch } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PrimaryButton from './buttons/PrimaryButton';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-
-interface IModalDialog {
-  title: string;
-  isOpen: boolean;
-  setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
-}
+import { SelectedOptionsContext } from '../context';
+import { useFetchPokemons } from '../service/hooks/useFetchPokemons';
+import { IFullPokemon, IModalDialog } from '../types';
 
 const ModalDialog = ({
   title,
@@ -14,6 +11,34 @@ const ModalDialog = ({
   isOpen,
   ...attr
 }: IModalDialog) => {
+  const [pokemons, setPokemons] = useState<IFullPokemon[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const context = useContext(SelectedOptionsContext);
+  const { fetchPokemonByUrl } = useFetchPokemons();
+
+  if (!context) return <p>Something went wrong</p>;
+  const { selectedOptions } = context;
+
+  const handlePokemonsByUrl = async () => {
+    try {
+      setIsLoading(true);
+      const pokemonPromises = selectedOptions.map(
+        async (option) => await fetchPokemonByUrl(option.url)
+      );
+
+      const pokemonsArray = await Promise.all(pokemonPromises);
+      setPokemons(pokemonsArray);
+    } catch (error) {
+      console.error('Error fetching Pokémon:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handlePokemonsByUrl();
+  }, []);
+
   return (
     <>
       {isOpen && (
@@ -28,7 +53,17 @@ const ModalDialog = ({
                 <XMarkIcon className="w-6 h-6" />
               </button>
             </div>
-            <p>Modal Dialog</p>
+            <div className="grid grid-cols-2 gap-4">
+              {isLoading && <p>Loading...</p>}
+              {pokemons.map((pokemon) => (
+                <img
+                  className=" w-full"
+                  key={pokemon.name}
+                  alt={pokemon.name}
+                  src={pokemon.sprites.front_default}
+                />
+              ))}
+            </div>
             <div className=" self-end flex gap-4">
               <button
                 onClick={() => setIsModalOpen(false)}
