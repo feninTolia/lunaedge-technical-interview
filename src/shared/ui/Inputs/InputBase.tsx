@@ -33,8 +33,8 @@ const InputBase = ({
         {...methods?.register(name)}
         className={`password-input border ${
           error ? 'border-errorRed' : 'border-grayDark'
-        }   bg-white py-2 px-3 ${
-          InputIcon ? 'pl-12' : ''
+        }   bg-white  pr-12 px-3 ${
+          InputIcon ? 'pl-12' : 'pl-2'
         } rounded-lg h-[42px] `}
         style={{ width: width ?? '384px' }}
         type={isHideText ? 'password' : type === 'password' ? 'text' : type}

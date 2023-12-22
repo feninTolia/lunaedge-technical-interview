@@ -28,6 +28,7 @@ const RegistrationForm = () => {
         <Input
           label="Last name"
           name="lastName"
+          TopRightSlot={<span>Some info</span>}
           InputIcon={<UserCircleIcon />}
         />
         <PrimaryButton type="submit" className=" self-center">

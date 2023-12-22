@@ -29,7 +29,7 @@ const Input = ({
           <span>{label}</span>
           <InformationCircleIcon className="w-4 h-4" />
         </div>
-        {TopRightSlot}
+        <span className="text-grayDark">{TopRightSlot}</span>
       </div>
       <InputBase width={width} InputIcon={InputIcon} name={name} {...attr} />
       <span className={` ${errorMessage ? 'text-errorRed' : 'text-grayDark'}`}>

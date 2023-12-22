@@ -38,7 +38,7 @@ function App() {
       <RegistrationForm />
 
       <MultipleSelect
-        label="Label"
+        label="Select poke team"
         helperText="This is a help text"
         availableOptions={availableOptions}
         selectedOptions={selectedOptions}
@@ -48,15 +48,6 @@ function App() {
         isDropdownOpen={isDropdownOpen}
         setIsDropdownOpen={setIsDropdownOpen}
         TopRightSlot={<span className="text-grayDark">Optional</span>}
-      />
-
-      <Input
-        label="Label"
-        helperText="This is a help text"
-        placeholder="Type to filter"
-        type="password"
-        InputIcon={<EnvelopeIcon />}
-        TopRightSlot={<span className="text-grayDark">Optional info</span>}
       />
 
       <PrimaryButton onClick={() => setIsModalOpen(true)}>
