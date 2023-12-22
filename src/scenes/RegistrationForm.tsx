@@ -3,15 +3,17 @@ import Input from '../shared/ui/Inputs/Input';
 import PrimaryButton from '../shared/ui/buttons/PrimaryButton';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registrationSchema } from '../shared/schemas/registration.schema';
-import { IRegistrationInputs } from '../shared/types';
+import { IRegistrationFormProps, IRegistrationInputs } from '../shared/types';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ onSuccess }: IRegistrationFormProps) => {
   const methods = useForm<IRegistrationInputs>({
     resolver: yupResolver(registrationSchema),
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => {
+    onSuccess(true);
+  };
 
   return (
     <FormProvider {...methods}>

@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import MultipleSelect from '../shared/ui/MultipleSelect';
 import { useFetchPokemons } from '../shared/service/hooks/useFetchPokemons';
 import { ISelectedOption } from '../shared/types';
+import PrimaryButton from '../shared/ui/buttons/PrimaryButton';
+import { ModalContext } from '../shared/context';
 
 const PokemonTeamSelector = () => {
   const [availableOptions, setAvailableOptions] = useState<ISelectedOption[]>(
     []
   );
-
   const { fetchPokemons, fetchPokemonByFullName } = useFetchPokemons();
+  const context = useContext(ModalContext);
 
   const fetchFirstPokemons = async () => {
     const res = await fetchPokemons();
@@ -49,13 +51,18 @@ const PokemonTeamSelector = () => {
   }, []);
 
   return (
-    <MultipleSelect
-      label="Select poke team"
-      helperText="This is a help text"
-      availableOptions={availableOptions}
-      TopRightSlot={<span className="text-grayDark">Optional</span>}
-      filterSearchFn={handleFetchPokemonByName}
-    />
+    <>
+      <MultipleSelect
+        label="Select poke team"
+        helperText="This is a help text"
+        availableOptions={availableOptions}
+        TopRightSlot={<span className="text-grayDark">Optional</span>}
+        filterSearchFn={handleFetchPokemonByName}
+      />
+      <PrimaryButton onClick={() => context?.setIsModalOpen(true)}>
+        Open modal
+      </PrimaryButton>
+    </>
   );
 };
 

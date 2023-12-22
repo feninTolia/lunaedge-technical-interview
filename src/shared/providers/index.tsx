@@ -1,15 +1,18 @@
-import React, { PropsWithChildren, useState } from 'react';
-import { SelectedOptionsContext } from '../context';
+import { PropsWithChildren, useState } from 'react';
+import { ModalContext, SelectedOptionsContext } from '../context';
 import { ISelectedOption } from '../types';
 
 const Providers = ({ children }: PropsWithChildren) => {
   const [selectedOptions, setSelectedOptions] = useState<ISelectedOption[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <SelectedOptionsContext.Provider
       value={{ selectedOptions, setSelectedOptions }}
     >
-      {children}
+      <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
+        {children}
+      </ModalContext.Provider>
     </SelectedOptionsContext.Provider>
   );
 };

@@ -1,12 +1,9 @@
 import { createContext } from 'react';
-import { ISelectedOption } from '../types';
+import { IModalContextProps, ISelectedOptionsContextProps } from '../types';
 
-interface ISelectedOptionsContextProps {
-  selectedOptions: ISelectedOption[];
-  setSelectedOptions: React.Dispatch<React.SetStateAction<ISelectedOption[]>>;
-}
-
-const ModalContext = createContext('light');
+export const ModalContext = createContext<IModalContextProps | undefined>(
+  undefined
+);
 
 export const SelectedOptionsContext = createContext<
   ISelectedOptionsContextProps | undefined

@@ -24,11 +24,22 @@ export interface ISelectedOption {
 
 export interface IModalDialog {
   title: string;
-  isOpen: boolean;
-  setIsModalOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IFullPokemon {
   name: string;
   sprites: { front_default: string };
+}
+
+export interface IRegistrationFormProps {
+  onSuccess: Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface ISelectedOptionsContextProps {
+  selectedOptions: ISelectedOption[];
+  setSelectedOptions: React.Dispatch<React.SetStateAction<ISelectedOption[]>>;
+}
+export interface IModalContextProps {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

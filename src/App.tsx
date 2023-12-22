@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import PrimaryButton from './shared/ui/buttons/PrimaryButton';
+import { useContext, useState } from 'react';
 import ModalDialog from './shared/ui/ModalDialog';
 import RegistrationForm from './scenes/RegistrationForm';
 import PokemonTeamSelector from './scenes/PokemonTeamSelector';
+import { ModalContext } from './shared/context';
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const context = useContext(ModalContext);
 
   return (
     <div className="flex flex-col items-center mt-10 gap-5">
@@ -13,20 +14,11 @@ function App() {
         Hello inside Luna Edge technical interview
       </h1>
 
-      <RegistrationForm />
-      <PokemonTeamSelector />
+      <RegistrationForm onSuccess={setIsRegistered} />
 
-      <PrimaryButton onClick={() => setIsModalOpen(true)}>
-        Add modal
-      </PrimaryButton>
+      {isRegistered && <PokemonTeamSelector />}
 
-      {isModalOpen && (
-        <ModalDialog
-          title="Your Team"
-          isOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
+      {context?.isModalOpen && <ModalDialog title="Your Team" />}
     </div>
   );
 }
