@@ -10,5 +10,8 @@ const meta: Meta<typeof Input> = {
 export default meta;
 
 export const DefaultInput: StoryObj<typeof Input> = {
-  args: { label: 'Label' },
+  args: {
+    label: 'Label',
+    helperText: 'This is help text',
+  },
 };

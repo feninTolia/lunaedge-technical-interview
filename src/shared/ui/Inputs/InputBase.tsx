@@ -21,7 +21,10 @@ const InputBase = ({
   const error = methods?.formState.errors[name]?.message as string;
 
   return (
-    <div className={`relative ${disabled ? ' opacity-30' : ''} ${className}`}>
+    <div
+      className={`relative ${disabled ? ' opacity-30' : ''} ${className}`}
+      style={{ width: width ?? '384px' }}
+    >
       <div
         className={`w-5 h-5 absolute bottom-1/2 left-4 translate-y-1/2 ${
           error ? 'text-errorRed' : ''
